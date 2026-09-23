@@ -126,6 +126,11 @@ export class SpokeStack extends Stack {
       queryString: queryStringParameter.valueAsString,
     });
     this.cdkNagSuppressions();
+    // Sovrn mandatory tags, enforced by an organization SCP. Applied at the
+    // stack so every resource this solution creates carries them at creation,
+    // rather than relying on a backfill automation to catch them later.
+    Tags.of(this).add("product", "ace");
+    Tags.of(this).add("application", "tag-inventory-spoke");
     Tags.of(this).add("Solution", "aws-organizations-tag-inventory");
     Tags.of(this).add(
       "Url",
